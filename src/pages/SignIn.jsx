@@ -96,7 +96,7 @@ export default function SignIn() {
       </form>
 
       <p className="mt-6 text-center text-sm text-muted">
-        New to DreamsRent?{" "}
+        New to MHR Rent?{" "}
         <Link to="/signup" className="font-semibold text-amber-deep">
           Create an account
         </Link>

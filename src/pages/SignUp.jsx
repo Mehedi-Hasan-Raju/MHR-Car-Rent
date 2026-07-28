@@ -97,7 +97,7 @@ export default function SignUp() {
             required
             value={form.name}
             onChange={handleChange}
-            placeholder="Jamal Uddin"
+            placeholder="Mehedi Hasan Raju"
             className="w-full rounded-xl border border-line px-4 py-3 text-sm outline-none transition focus:border-amber focus:ring-2 focus:ring-amber/20"
           />
         </div>
