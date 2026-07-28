@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getSession, clearSession } from "../auth/session";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const session = getSession();
 
   const links = [
     { href: "#home", label: "Home" },
@@ -11,10 +15,16 @@ export default function Navbar() {
     { href: "#faq", label: "FAQ" },
   ];
 
+  const handleLogout = () => {
+    clearSession();
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between gap-6 px-6">
-        <a href="#" className="flex items-center gap-2 font-display text-lg font-semibold">
+        <Link to="/" className="flex items-center gap-2 font-display text-lg font-semibold">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
             <path
               d="M3 13l1.6-4.8A2 2 0 0 1 6.5 7h11a2 2 0 0 1 1.9 1.2L21 13v6a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6Z"
@@ -28,7 +38,7 @@ export default function Navbar() {
           <span>
             Dreams<b className="font-extrabold">Rent</b>
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden gap-8 text-sm font-medium text-inksoft md:flex">
           {links.map((l) => (
@@ -39,12 +49,32 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <a href="#" className="rounded-full px-5 py-3 text-sm font-semibold text-ink">
-            Sign In
-          </a>
-          <a href="#" className="rounded-full bg-amber px-5 py-3 text-sm font-semibold text-[#1a1200] transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-10px_rgba(247,148,29,0.6)]">
-            Sign Up
-          </a>
+          {session ? (
+            <>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-amber text-sm font-bold text-[#1a1200]">
+                {session.user?.name?.[0]?.toUpperCase() || "U"}
+              </span>
+              <span className="mr-1 text-sm font-medium text-inksoft">{session.user?.name}</span>
+              <button
+                onClick={handleLogout}
+                className="rounded-full px-5 py-3 text-sm font-semibold text-ink"
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/signin" className="rounded-full px-5 py-3 text-sm font-semibold text-ink">
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                className="rounded-full bg-amber px-5 py-3 text-sm font-semibold text-[#1a1200] transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-10px_rgba(247,148,29,0.6)]"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -66,12 +96,26 @@ export default function Navbar() {
             </a>
           ))}
           <div className="mt-2 flex gap-2">
-            <a href="#" className="flex-1 rounded-full py-3 text-center text-sm font-semibold">
-              Sign In
-            </a>
-            <a href="#" className="flex-1 rounded-full bg-amber py-3 text-center text-sm font-semibold text-[#1a1200]">
-              Sign Up
-            </a>
+            {session ? (
+              <button
+                onClick={handleLogout}
+                className="flex-1 rounded-full py-3 text-center text-sm font-semibold"
+              >
+                Log Out
+              </button>
+            ) : (
+              <>
+                <Link to="/signin" className="flex-1 rounded-full py-3 text-center text-sm font-semibold">
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  className="flex-1 rounded-full bg-amber py-3 text-center text-sm font-semibold text-[#1a1200]"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
