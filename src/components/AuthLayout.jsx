@@ -24,7 +24,7 @@ export default function AuthLayout({ title, subtitle, children }) {
             <circle cx="16.5" cy="16.5" r="1.5" fill="#F7941D" />
           </svg>
           <span>
-            Dreams<b>Rent</b>
+            MHR <b>Rent</b>
           </span>
         </Link>
 
@@ -68,7 +68,7 @@ export default function AuthLayout({ title, subtitle, children }) {
               />
             </svg>
             <span>
-              Dreams<b>Rent</b>
+              MHR <b>Rent</b>
             </span>
           </Link>
 
