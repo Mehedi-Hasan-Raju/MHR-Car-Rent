@@ -28,7 +28,7 @@ const emptyForm = {
   is_featured: false,
 };
 
-export default function VehicleForm({ editingVehicle, onSaved, onCancelEdit }) {
+export default function VehicleForm({ ownerId,editingVehicle, onSaved, onCancelEdit }) {
   const [form, setForm] = useState(emptyForm);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -91,6 +91,7 @@ export default function VehicleForm({ editingVehicle, onSaved, onCancelEdit }) {
       longitude: form.longitude ? Number(form.longitude) : null,
       description: form.description || null,
       is_featured: !!form.is_featured,
+      owner_id: editingVehicle ? editingVehicle.owner_id ?? ownerId : ownerId,
     };
 
     const { error: apiError } = editingVehicle

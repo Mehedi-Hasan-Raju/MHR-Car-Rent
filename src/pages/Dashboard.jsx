@@ -86,6 +86,7 @@ export default function Dashboard() {
 
           {isAdmin && tab === "create" && (
             <VehicleForm
+              ownerId={user.id}
               editingVehicle={editingVehicle}
               onSaved={afterSave}
               onCancelEdit={() => {
