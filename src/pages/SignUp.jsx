@@ -3,11 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout.jsx";
 import { api } from "../api/client";
 
-const ROLES = [
-  { value: "customer", label: "Rent a car", desc: "Browse & book vehicles" },
-  { value: "owner", label: "List my car", desc: "Earn by renting out" },
-];
-
 export default function SignUp() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -16,12 +11,16 @@ export default function SignUp() {
     phone: "",
     password: "",
     confirmPassword: "",
-    role: "customer",
+    isAdmin: false,
+    adminCode: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((f) => ({ ...f, [name]: type === "checkbox" ? checked : value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +34,10 @@ export default function SignUp() {
       setError("Passwords don't match.");
       return;
     }
+    if (form.isAdmin && !form.adminCode) {
+      setError("Enter the admin invite code, or uncheck 'Register as admin'.");
+      return;
+    }
 
     setLoading(true);
 
@@ -43,7 +46,8 @@ export default function SignUp() {
       email: form.email,
       phone: form.phone,
       password: form.password,
-      role: form.role,
+      role: form.isAdmin ? "admin" : "customer",
+      adminCode: form.isAdmin ? form.adminCode : undefined,
     });
 
     setLoading(false);
@@ -66,30 +70,6 @@ export default function SignUp() {
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-2.5">
-          {ROLES.map((r) => (
-            <label
-              key={r.value}
-              className={`cursor-pointer rounded-xl border px-4 py-3 text-sm transition ${
-                form.role === r.value
-                  ? "border-amber bg-amber/10"
-                  : "border-line hover:border-inksoft/30"
-              }`}
-            >
-              <input
-                type="radio"
-                name="role"
-                value={r.value}
-                checked={form.role === r.value}
-                onChange={handleChange}
-                className="sr-only"
-              />
-              <span className="block font-semibold">{r.label}</span>
-              <span className="block text-xs text-muted">{r.desc}</span>
-            </label>
-          ))}
-        </div>
-
         <div>
           <label className="mb-1.5 block text-sm font-medium text-inksoft">Full name</label>
           <input
@@ -97,7 +77,7 @@ export default function SignUp() {
             required
             value={form.name}
             onChange={handleChange}
-            placeholder="Mehedi Hasan Raju"
+            placeholder="Jamal Uddin"
             className="w-full rounded-xl border border-line px-4 py-3 text-sm outline-none transition focus:border-amber focus:ring-2 focus:ring-amber/20"
           />
         </div>
@@ -155,6 +135,32 @@ export default function SignUp() {
               className="w-full rounded-xl border border-line px-4 py-3 text-sm outline-none transition focus:border-amber focus:ring-2 focus:ring-amber/20"
             />
           </div>
+        </div>
+
+        <div className="rounded-xl border border-line p-4">
+          <label className="flex items-center gap-2 text-sm font-medium text-inksoft">
+            <input
+              type="checkbox"
+              name="isAdmin"
+              checked={form.isAdmin}
+              onChange={handleChange}
+              className="h-4 w-4 rounded border-line accent-[#F7941D]"
+            />
+            Register as admin (fleet owner / staff)
+          </label>
+
+          {form.isAdmin && (
+            <div className="mt-3">
+              <label className="mb-1.5 block text-xs font-medium text-muted">Admin invite code</label>
+              <input
+                name="adminCode"
+                value={form.adminCode}
+                onChange={handleChange}
+                placeholder="Ask your admin for this code"
+                className="w-full rounded-xl border border-line px-4 py-2.5 text-sm outline-none transition focus:border-amber focus:ring-2 focus:ring-amber/20"
+              />
+            </div>
+          )}
         </div>
 
         <button
