@@ -9,7 +9,6 @@ export default function Navbar() {
 
   const links = [
     { href: "#home", label: "Home" },
-    { href: "#listings", label: "Listings" },
     { href: "#feedback", label: "Reviews" },
     { href: "#insights", label: "Blog" },
     { href: "#faq", label: "FAQ" },
@@ -36,11 +35,14 @@ export default function Navbar() {
             <circle cx="16.5" cy="16.5" r="1.5" fill="#F7941D" />
           </svg>
           <span>
-            MHR <b className="font-extrabold">Rent</b>
+            Dreams<b className="font-extrabold">Rent</b>
           </span>
         </Link>
 
         <nav className="hidden gap-8 text-sm font-medium text-inksoft md:flex">
+          <Link to="/listings" className="transition hover:text-amber-deep">
+            Listings
+          </Link>
           {links.map((l) => (
             <a key={l.href} href={l.href} className="transition hover:text-amber-deep">
               {l.label}
@@ -51,10 +53,12 @@ export default function Navbar() {
         <div className="hidden items-center gap-2 md:flex">
           {session ? (
             <>
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-amber text-sm font-bold text-[#1a1200]">
-                {session.user?.name?.[0]?.toUpperCase() || "U"}
-              </span>
-              <span className="mr-1 text-sm font-medium text-inksoft">{session.user?.name}</span>
+              <Link to="/dashboard" className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 transition hover:bg-soft">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-amber text-sm font-bold text-[#1a1200]">
+                  {session.user?.name?.[0]?.toUpperCase() || "U"}
+                </span>
+                <span className="text-sm font-medium text-inksoft">{session.user?.name}</span>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="rounded-full px-5 py-3 text-sm font-semibold text-ink"
@@ -90,6 +94,9 @@ export default function Navbar() {
 
       {open && (
         <div className="flex flex-col gap-1 border-t border-line px-6 py-4 md:hidden">
+          <Link to="/listings" className="py-2 text-sm font-medium text-inksoft">
+            Listings
+          </Link>
           {links.map((l) => (
             <a key={l.href} href={l.href} className="py-2 text-sm font-medium text-inksoft">
               {l.label}
@@ -97,12 +104,17 @@ export default function Navbar() {
           ))}
           <div className="mt-2 flex gap-2">
             {session ? (
-              <button
-                onClick={handleLogout}
-                className="flex-1 rounded-full py-3 text-center text-sm font-semibold"
-              >
-                Log Out
-              </button>
+              <>
+                <Link to="/dashboard" className="flex-1 rounded-full border border-line py-3 text-center text-sm font-semibold">
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex-1 rounded-full py-3 text-center text-sm font-semibold"
+                >
+                  Log Out
+                </button>
+              </>
             ) : (
               <>
                 <Link to="/signin" className="flex-1 rounded-full py-3 text-center text-sm font-semibold">
