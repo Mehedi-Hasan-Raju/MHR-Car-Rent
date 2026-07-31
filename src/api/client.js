@@ -53,7 +53,7 @@ export const api = {
   getBlogs: () => apiGet("/content/blogs"),
   getFaqs: () => apiGet("/content/faqs"),
 
-  // ---- Auth ----
+ // ---- Auth ----
   // Backend: POST /api/v1/users expects { name, role, email, password, phone }
   registerUser: (payload) => apiSend("POST", "/users", payload),
   // Backend: POST /api/v1/auth/login expects { email, password } -> { token, user }
@@ -68,4 +68,12 @@ export const api = {
   getBookings: () => apiSend("GET", "/bookings", undefined, true),
   // Admin -> marks 'returned'; customer -> cancels their own (if not yet started)
   updateBooking: (id) => apiSend("PUT", `/bookings/${id}`, {}, true),
+
+  // ---- Category management (admin only) ----
+  createCategory: (payload) => apiSend("POST", "/categories", payload, true),
+  deleteCategory: (id) => apiSend("DELETE", `/categories/${id}`, undefined, true),
+
+  // ---- Brand management (admin only) ----
+  createBrand: (payload) => apiSend("POST", "/brands", payload, true),
+  deleteBrand: (id) => apiSend("DELETE", `/brands/${id}`, undefined, true),
 };
