@@ -47,7 +47,15 @@ export default function Categories() {
               key={c.id}
               className="rounded-2xl border border-line bg-white p-6 text-center transition hover:-translate-y-1 hover:border-transparent hover:shadow-soft"
             >
-              <div className="mb-2.5 text-2xl">{iconFor(c.name)}</div>
+              {c.image_url ? (
+                <img
+                  src={c.image_url}
+                  alt={c.name}
+                  className="mx-auto mb-2.5 h-12 w-12 rounded-full object-cover"
+                />
+              ) : (
+                <div className="mb-2.5 text-2xl">{iconFor(c.name)}</div>
+              )}
               <h4 className="text-sm font-semibold">{c.name}</h4>
               <span className="mt-0.5 block text-xs text-muted">
                 {c.vehicle_count} Car{c.vehicle_count === 1 ? "" : "s"}

@@ -33,6 +33,9 @@ export default function Brands({ onCountLoaded }) {
               key={b.id}
               className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold"
             >
+              {b.logo_url ? (
+                <img src={b.logo_url} alt={b.name} className="h-6 w-6 rounded-full object-cover" />
+              ) : null}
               {b.name} <span className="text-[12.5px] font-normal text-white/50">{b.vehicle_count} cars</span>
             </div>
           ))}

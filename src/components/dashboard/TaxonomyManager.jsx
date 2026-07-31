@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { api } from "../../api/client";
 import { EmptyNote } from "../Common";
 
-function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete }) {
+function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete, imageField = "image_url" }) {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [saving, setSaving] = useState(false);
@@ -13,7 +13,10 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete }) {
     if (!name.trim()) return;
     setSaving(true);
     setFormError("");
-    const { error: apiError } = await onAdd({ name: name.trim(), image_url: imageUrl.trim() || undefined });
+    const { error: apiError } = await onAdd({
+      name: name.trim(),
+      [imageField]: imageUrl.trim() || undefined,
+    });
     setSaving(false);
     if (apiError) {
       setFormError(apiError);
@@ -57,9 +60,14 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete }) {
         {!loading && !error && items.length === 0 && (
           <p className="text-sm text-muted">None yet — add one above so it shows up on the homepage.</p>
         )}
-        {items.map((item) => (
+         {items.map((item) => (
           <div key={item.id} className="flex items-center justify-between rounded-xl border border-line px-4 py-2.5 text-sm">
-            <span className="font-medium">
+            <span className="flex items-center gap-2 font-medium">
+              {item[imageField] ? (
+                <img src={item[imageField]} alt="" className="h-7 w-7 rounded-full object-cover" />
+              ) : (
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-line text-xs">—</span>
+              )}
               {item.name} <span className="text-muted">({item.vehicle_count ?? 0} cars)</span>
             </span>
             <button
@@ -123,6 +131,7 @@ export default function TaxonomyManager() {
         error={categories.error}
         onAdd={addCategory}
         onDelete={removeCategory}
+        imageField="image_url"
       />
       <TaxonomyList
         title="Brands"
@@ -132,6 +141,7 @@ export default function TaxonomyManager() {
         error={brands.error}
         onAdd={addBrand}
         onDelete={removeBrand}
+        imageField="logo_url"
       />
     </div>
   );
