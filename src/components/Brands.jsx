@@ -22,8 +22,8 @@ export default function Brands({ onCountLoaded }) {
           <h2 className="font-display text-3xl font-bold md:text-4xl">Every marque, one garage</h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3.5">
-          {state.loading && <SkeletonRow count={5} className="h-11 w-32 rounded-full" />}
+        <div className="flex flex-wrap justify-center gap-4">
+          {state.loading && <SkeletonRow count={5} className="h-20 w-40 rounded-2xl" />}
           {state.error && <EmptyNote>Brands couldn't be loaded.</EmptyNote>}
           {!state.loading && !state.error && (!state.data || state.data.length === 0) && (
             <EmptyNote>No brands added yet.</EmptyNote>
@@ -31,12 +31,14 @@ export default function Brands({ onCountLoaded }) {
           {state.data?.map((b) => (
             <div
               key={b.id}
-              className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold"
+              className="flex h-20 w-40 items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4"
+              title={b.name}
             >
               {b.logo_url ? (
-                <img src={b.logo_url} alt={b.name} className="h-6 w-6 rounded-full object-cover" />
-              ) : null}
-              {b.name} <span className="text-[12.5px] font-normal text-white/50">{b.vehicle_count} cars</span>
+                <img src={b.logo_url} alt={b.name} className="max-h-14 max-w-full object-contain" />
+              ) : (
+                <span className="text-sm font-semibold text-white/70">{b.name}</span>
+              )}
             </div>
           ))}
         </div>
