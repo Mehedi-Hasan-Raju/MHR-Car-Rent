@@ -1,3 +1,5 @@
+import whyUsImage from "../assets/why-us-car.jpg";
+
 const FEATURES = [
   { icon: "💸", title: "Best Deal", desc: "Transparent daily pricing, no surprise markups." },
   { icon: "🚪", title: "Doorstep Delivery", desc: "We bring the car to you, at the time you pick." },
@@ -12,15 +14,11 @@ export default function WhyUs() {
     <section className="bg-soft py-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 md:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <svg viewBox="0 0 420 320" fill="none" className="w-full drop-shadow-[0_20px_30px_rgba(20,21,26,0.2)]">
-            <rect x="20" y="40" width="380" height="240" rx="24" fill="#14151A" />
-            <path
-              d="M60 210c0-10 7-19 17-22l30-9 26-34c6-8 15-13 25-13h70c11 0 21 5 27 14l27 34 25 7c11 3 18 12 18 23v20a10 10 0 0 1-10 10H70a10 10 0 0 1-10-10v-20Z"
-              fill="#F7941D"
-            />
-            <circle cx="132" cy="238" r="20" fill="#0F1013" />
-            <circle cx="300" cy="238" r="20" fill="#0F1013" />
-          </svg>
+          <img
+            src={whyUsImage}
+            alt="A car ready for rental"
+            className="aspect-[4/3] w-full rounded-3xl object-cover shadow-[0_20px_30px_rgba(20,21,26,0.2)]"
+          />
         </div>
 
         <div>
