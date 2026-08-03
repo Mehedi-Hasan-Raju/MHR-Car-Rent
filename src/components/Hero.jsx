@@ -102,7 +102,7 @@ export default function Hero({ startingPrice }) {
       </div>
 
       {/* search bar */}
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 md:pb-24">
         <form
           onSubmit={handleSubmit}
           className="z-10 mt-11 grid translate-y-1/2 grid-cols-1 gap-0 rounded-3xl bg-white p-2.5 shadow-soft md:grid-cols-[1.3fr_1fr_1fr_auto]"
