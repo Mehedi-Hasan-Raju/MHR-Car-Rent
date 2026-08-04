@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../api/client";
+import stepsCarImg from "../assets/steps-car.avif";
 
 const STEPS = [
   { num: "01", title: "Choose dates & location", desc: "Tell us when and where you need wheels." },
@@ -30,30 +31,41 @@ export default function StepsStats({ brandCount }) {
 
   return (
     <section className="py-24">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 md:grid-cols-2">
-        <div>
-          <span className="mb-2.5 block text-[12.5px] font-semibold tracking-wide text-amber-deep">
-            ✦ How it works
-          </span>
-          <h2 className="font-display text-3xl font-bold md:text-4xl">Rent our cars in 3 steps</h2>
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid grid-cols-1 items-center gap-14 md:grid-cols-2">
+          <div>
+            <span className="mb-2.5 block text-[12.5px] font-semibold tracking-wide text-amber-deep">
+              ✦ How it works
+            </span>
+            <h2 className="font-display text-3xl font-bold md:text-4xl">Rent our cars in 3 steps</h2>
 
-          <ol className="mt-4">
-            {STEPS.map((s, i) => (
-              <li
-                key={s.num}
-                className={`flex gap-5 py-5 ${i !== STEPS.length - 1 ? "border-b border-line" : ""}`}
-              >
-                <span className="flex-shrink-0 font-display text-xl font-bold text-amber">{s.num}</span>
-                <div>
-                  <h4 className="mb-1 text-[15.5px] font-semibold">{s.title}</h4>
-                  <p className="text-[13.5px] text-muted">{s.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+            <ol className="mt-4">
+              {STEPS.map((s, i) => (
+                <li
+                  key={s.num}
+                  className={`flex gap-5 py-5 ${i !== STEPS.length - 1 ? "border-b border-line" : ""}`}
+                >
+                  <span className="flex-shrink-0 font-display text-xl font-bold text-amber">{s.num}</span>
+                  <div>
+                    <h4 className="mb-1 text-[15.5px] font-semibold">{s.title}</h4>
+                    <p className="text-[13.5px] text-muted">{s.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div>
+            <img
+              src={stepsCarImg}
+              alt="Car ready for pickup"
+              className="aspect-[4/3] w-full rounded-[22px] object-cover shadow-soft"
+            />
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 rounded-[22px] bg-ink p-9 text-white">
+        {/* full-width stats row */}
+        <div className="mt-14 grid grid-cols-2 gap-6 rounded-[22px] bg-ink p-9 text-white sm:grid-cols-4">
           <div>
             <strong className="block font-display text-3xl font-bold text-amber">{stats.cars}</strong>
             <span className="text-[12.5px] text-white/60">Cars Listed</span>
