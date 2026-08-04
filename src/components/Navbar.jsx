@@ -35,7 +35,7 @@ export default function Navbar() {
             <circle cx="16.5" cy="16.5" r="1.5" fill="#F7941D" />
           </svg>
           <span>
-            Dreams<b className="font-extrabold">Rent</b>
+            MHR <b className="font-extrabold">Rent</b>
           </span>
         </Link>
 
