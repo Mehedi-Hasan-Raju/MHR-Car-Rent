@@ -66,6 +66,9 @@ export const api = {
   createPricingPlan: (payload) => apiSend("POST", "/content/pricing-plans", payload, true),
   updatePricingPlan: (id, payload) => apiSend("PUT", `/content/pricing-plans/${id}`, payload, true),
   deletePricingPlan: (id) => apiSend("DELETE", `/content/pricing-plans/${id}`, undefined, true),
+  createFaq: (payload) => apiSend("POST", "/content/faqs", payload, true),
+  updateFaq: (id, payload) => apiSend("PUT", `/content/faqs/${id}`, payload, true),
+  deleteFaq: (id) => apiSend("DELETE", `/content/faqs/${id}`, undefined, true),
 
   // ---- Bookings (needs the JWT; admin gets every booking, customer gets their own) ----
   getBookings: () => apiSend("GET", "/bookings", undefined, true),

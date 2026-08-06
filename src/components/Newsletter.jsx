@@ -8,7 +8,7 @@ export default function Newsletter() {
     <section className="bg-amber py-12">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-6">
         <div>
-          <h3 className="text-xl font-bold text-[#1a1200]">Get the DreamsRent app</h3>
+          <h3 className="text-xl font-bold text-[#1a1200]">Get the MHR Rent app</h3>
           <p className="mt-1 text-sm text-[#1a1200]/70">
             Manage bookings, track your ride, and unlock member-only rates.
           </p>

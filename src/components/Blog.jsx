@@ -16,7 +16,7 @@ export default function Blog() {
           <span className="mb-2.5 block text-[12.5px] font-semibold tracking-wide text-amber-deep">
             ✦ Insights &amp; innovations
           </span>
-          <h2 className="font-display text-3xl font-bold md:text-4xl">From the DreamsRent journal</h2>
+          <h2 className="font-display text-3xl font-bold md:text-4xl">From the MHR Rent journal</h2>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
