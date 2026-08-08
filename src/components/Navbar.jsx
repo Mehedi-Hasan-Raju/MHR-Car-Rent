@@ -10,7 +10,6 @@ export default function Navbar() {
   const links = [
     { href: "#home", label: "Home" },
     { href: "#feedback", label: "Reviews" },
-    { href: "#insights", label: "Blog" },
     { href: "#faq", label: "FAQ" },
   ];
 

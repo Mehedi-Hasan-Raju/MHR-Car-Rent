@@ -28,7 +28,6 @@ export default function Home() {
       <StepsStats brandCount={brandCount} />
       <Testimonials />
       <Pricing />
-      <Blog />
       <Faq />
       <Newsletter />
       <Footer />
