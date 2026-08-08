@@ -7,6 +7,8 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete, ima
   const [imageUrl, setImageUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
+  const [deletingId, setDeletingId] = useState(null);
+  const [deleteError, setDeleteError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +26,19 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete, ima
     }
     setName("");
     setImageUrl("");
+  };
+
+  const handleDelete = async (item) => {
+    if (!confirm(`Remove "${item.name}"?`)) return;
+    setDeleteError("");
+    setDeletingId(item.id);
+    const { error: apiError } = await onDelete(item.id);
+    setDeletingId(null);
+    if (apiError) {
+      // Surface *why* it failed instead of failing silently — e.g. your admin
+      // session expired, or the backend rejected the request.
+      setDeleteError(`Couldn't remove "${item.name}": ${apiError}`);
+    }
   };
 
   return (
@@ -53,6 +68,7 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete, ima
         </button>
       </form>
       {formError && <p className="mt-2 text-sm text-red-600">{formError}</p>}
+      {deleteError && <p className="mt-2 text-sm text-red-600">{deleteError}</p>}
 
       <div className="mt-5 space-y-2">
         {loading && <div className="skeleton h-10 rounded-lg" />}
@@ -60,7 +76,7 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete, ima
         {!loading && !error && items.length === 0 && (
           <p className="text-sm text-muted">None yet — add one above so it shows up on the homepage.</p>
         )}
-         {items.map((item) => (
+        {items.map((item) => (
           <div key={item.id} className="flex items-center justify-between rounded-xl border border-line px-4 py-2.5 text-sm">
             <span className="flex items-center gap-2 font-medium">
               {item[imageField] ? (
@@ -71,10 +87,11 @@ function TaxonomyList({ title, hint, items, loading, error, onAdd, onDelete, ima
               {item.name} <span className="text-muted">({item.vehicle_count ?? 0} cars)</span>
             </span>
             <button
-              onClick={() => onDelete(item.id)}
-              className="text-xs font-semibold text-red-600"
+              onClick={() => handleDelete(item)}
+              disabled={deletingId === item.id}
+              className="text-xs font-semibold text-red-600 disabled:opacity-50"
             >
-              Remove
+              {deletingId === item.id ? "Removing…" : "Remove"}
             </button>
           </div>
         ))}
@@ -105,9 +122,9 @@ export default function TaxonomyManager() {
     return res;
   };
   const removeCategory = async (id) => {
-    if (!confirm("Remove this category? Cars in it will keep their other details but lose this category.")) return;
-    await api.deleteCategory(id);
-    loadCategories();
+    const res = await api.deleteCategory(id);
+    if (!res.error) loadCategories();
+    return res;
   };
 
   const addBrand = async (payload) => {
@@ -116,9 +133,9 @@ export default function TaxonomyManager() {
     return res;
   };
   const removeBrand = async (id) => {
-    if (!confirm("Remove this brand?")) return;
-    await api.deleteBrand(id);
-    loadBrands();
+    const res = await api.deleteBrand(id);
+    if (!res.error) loadBrands();
+    return res;
   };
 
   return (

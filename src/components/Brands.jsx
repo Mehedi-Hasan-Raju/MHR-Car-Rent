@@ -33,10 +33,10 @@ export default function Brands({ onCountLoaded }) {
                 <img
                   src={b.logo_url}
                   alt={b.name}
-                  className="h-11 max-w-[96px] object-contain opacity-60 grayscale brightness-[3.5] transition hover:opacity-100 hover:grayscale-0 hover:brightness-100"
+                  className="h-30 max-w-[96px] object-contain opacity-60 grayscale brightness-[3.5] transition hover:opacity-100 hover:grayscale-0 hover:brightness-100"
                 />
               ) : (
-                <span className="flex h-11 items-center text-lg font-bold text-white/40">{b.name}</span>
+                <span className="flex h-30 items-center text-lg font-bold text-white/40">{b.name}</span>
               )}
               <span className="text-sm font-bold text-white/85">{b.name}</span>
             </div>
