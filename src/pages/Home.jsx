@@ -8,7 +8,6 @@ import Brands from "../components/Brands.jsx";
 import StepsStats from "../components/StepsStats.jsx";
 import Testimonials from "../components/Testimonials.jsx";
 import Pricing from "../components/Pricing.jsx";
-import Blog from "../components/Blog.jsx";
 import Faq from "../components/Faq.jsx";
 import Newsletter from "../components/Newsletter.jsx";
 import Footer from "../components/Footer.jsx";
