@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Stars } from "./Common";
 
 export default function CarCard({ v, layout = "grid" }) {
@@ -66,12 +67,12 @@ export default function CarCard({ v, layout = "grid" }) {
         <span className="flex items-center gap-1 text-[12.5px] text-muted">
           📍 {[v.city, v.country].filter(Boolean).join(", ") || "Location not set"}
         </span>
-        <a
-          href="#"
+        <Link
+          to={`/listings/${v.id}`}
           className="rounded-full bg-ink px-4 py-2 text-[13px] font-semibold text-white transition hover:-translate-y-0.5"
         >
           Rent Now
-        </a>
+        </Link>
       </div>
     </div>
   );

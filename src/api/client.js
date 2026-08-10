@@ -70,6 +70,18 @@ export const api = {
   updateFaq: (id, payload) => apiSend("PUT", `/content/faqs/${id}`, payload, true),
   deleteFaq: (id) => apiSend("DELETE", `/content/faqs/${id}`, undefined, true),
 
+
+    // ---- Bookings (needs the JWT; admin gets every booking, customer gets their own) ----
+  getBookings: () => apiSend("GET", "/bookings", undefined, true),
+  // customer/admin -> { vehicle_id, rent_start_date, rent_end_date }
+  createBooking: (payload) => apiSend("POST", "/bookings", payload, true),
+  // Admin -> marks 'returned'; customer -> cancels their own (if not yet started)
+  updateBooking: (id) => apiSend("PUT", `/bookings/${id}`, {}, true),
+
+  // ---- Reviews (needs the JWT — anyone logged in as customer/admin can leave one) ----
+  createReview: (payload) => apiSend("POST", "/reviews", payload, true),
+
+
   // ---- Bookings (needs the JWT; admin gets every booking, customer gets their own) ----
   getBookings: () => apiSend("GET", "/bookings", undefined, true),
   // Admin -> marks 'returned'; customer -> cancels their own (if not yet started)
@@ -83,3 +95,4 @@ export const api = {
   createBrand: (payload) => apiSend("POST", "/brands", payload, true),
   deleteBrand: (id) => apiSend("DELETE", `/brands/${id}`, undefined, true),
 };
+
