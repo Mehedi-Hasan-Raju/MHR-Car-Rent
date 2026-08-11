@@ -64,6 +64,7 @@ export default function CarDetail() {
 
   const [reviewForm, setReviewForm] = useState({ rating: 0, comment: "" });
   const [review, setReview] = useState({ saving: false, error: "", success: "" });
+  const [reviewList, setReviewList] = useState({ loading: true, data: [], error: null });
 
   useEffect(() => {
     setState({ loading: true, data: null, error: null });
@@ -71,6 +72,13 @@ export default function CarDetail() {
     api.getVehicle(id).then(({ data, error }) => setState({ loading: false, data, error }));
     window.scrollTo(0, 0);
   }, [id]);
+
+  function loadReviews() {
+    setReviewList((s) => ({ ...s, loading: true }));
+    api.getVehicleReviews(id).then(({ data, error }) => setReviewList({ loading: false, data: data || [], error }));
+  }
+
+  useEffect(loadReviews, [id]);
 
   async function handleBook(e) {
     e.preventDefault();
@@ -117,8 +125,9 @@ export default function CarDetail() {
     }
     setReview({ saving: false, error: "", success: "Thanks — your review has been posted." });
     setReviewForm({ rating: 0, comment: "" });
-    // refresh so the rating/review count on this page reflect the new review
+    // refresh so the rating/review count — and the list below — reflect the new review
     api.getVehicle(id).then(({ data }) => data && setState((s) => ({ ...s, data })));
+    loadReviews();
   }
 
   if (state.loading) {
@@ -288,6 +297,47 @@ export default function CarDetail() {
                   {showFullDescription ? "Show Less" : "+ Show More"}
                 </button>
               )}
+            </div>
+
+            {/* reviews list */}
+            <div className="rounded-2xl border border-line bg-white p-6">
+              <h3 className="mb-4 text-[15px] font-semibold">
+                Reviews {reviewList.data.length > 0 && `(${reviewList.data.length})`}
+              </h3>
+
+              {reviewList.loading && <div className="skeleton h-20 rounded-xl" />}
+              {reviewList.error && (
+                <p className="text-sm text-muted">Couldn't load reviews right now.</p>
+              )}
+              {!reviewList.loading && !reviewList.error && reviewList.data.length === 0 && (
+                <p className="text-sm text-muted">No reviews yet — be the first to leave one below.</p>
+              )}
+
+              <div className="space-y-5">
+                {reviewList.data.map((r) => (
+                  <div key={r.id} className="flex items-start gap-3 border-t border-line pt-5 first:border-t-0 first:pt-0">
+                    {r.customer_avatar ? (
+                      <img src={r.customer_avatar} alt="" className="h-10 w-10 rounded-full object-cover" />
+                    ) : (
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-amber/15 text-xs font-bold text-amber-deep">
+                        {initials(r.customer_name)}
+                      </span>
+                    )}
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-sm font-semibold">{r.customer_name}</p>
+                        <span className="text-xs text-muted">
+                          {new Date(r.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <div className="mt-0.5 text-sm"><Stars rating={r.rating} /></div>
+                      {r.comment && (
+                        <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{r.comment}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* leave a review */}

@@ -1,7 +1,7 @@
 import { getSession } from "../auth/session";
 
 // Point this at your running backend. Change if the port/host differs.
-export const API_BASE = "http://localhost:5000/api/v1";
+export const API_BASE = import.meta.env.VITE_API_BASE || "";
 
 // The backend's auth middleware reads `req.headers.authorization` as the raw
 // JWT (no "Bearer " prefix) — see src/middlewere/auth.ts — so we match that here.
@@ -72,7 +72,8 @@ export const api = {
   updateBooking: (id) => apiSend("PUT", `/bookings/${id}`, {}, true),
 
   // ---- Reviews (needs the JWT — anyone logged in as customer/admin can leave one) ----
-  createReview: (payload) => apiSend("POST", "/reviews", payload, true),
+ createReview: (payload) => apiSend("POST", "/reviews", payload, true),
+  getVehicleReviews: (vehicleId) => apiGet(`/reviews/vehicle/${vehicleId}`),
 
   // ---- Category management (admin only) ----
   createCategory: (payload) => apiSend("POST", "/categories", payload, true),
