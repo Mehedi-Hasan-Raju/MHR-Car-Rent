@@ -10,6 +10,7 @@ import MyBookings from "../components/dashboard/MyBookings.jsx";
 import TaxonomyManager from "../components/dashboard/TaxonomyManager.jsx";
 import PricingManager from "../components/dashboard/PricingManager.jsx";
 import FaqManager from "../components/dashboard/FaqManager.jsx";
+import TestimonialManager from "../components/dashboard/TestimonialManager.jsx";
 
 export default function Dashboard() {
   const session = getSession();
@@ -32,6 +33,7 @@ export default function Dashboard() {
         { key: "taxonomy", label: "Categories & Brands" },
         { key: "pricing", label: "Pricing Plans" },
         { key: "faqs", label: "FAQs" },
+        { key: "testimonials", label: "Testimonials" },
       ]
     : [{ key: "bookings", label: "My Bookings" }];
 
@@ -107,6 +109,7 @@ export default function Dashboard() {
           {isAdmin && tab === "taxonomy" && <TaxonomyManager />}
           {isAdmin && tab === "pricing" && <PricingManager />}
           {isAdmin && tab === "faqs" && <FaqManager />}
+          {isAdmin && tab === "testimonials" && <TestimonialManager />}
           {!isAdmin && tab === "bookings" && (
             <>
               <div className="mb-6 rounded-2xl border border-line bg-white px-5 py-4 text-sm text-muted">

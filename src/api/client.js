@@ -53,7 +53,7 @@ export const api = {
   getBlogs: () => apiGet("/content/blogs"),
   getFaqs: () => apiGet("/content/faqs"),
 
- // ---- Auth ----
+  // ---- Auth ----
   // Backend: POST /api/v1/users expects { name, role, email, password, phone }
   registerUser: (payload) => apiSend("POST", "/users", payload),
   // Backend: POST /api/v1/auth/login expects { email, password } -> { token, user }
@@ -63,15 +63,8 @@ export const api = {
   createVehicle: (payload) => apiSend("POST", "/vehicles", payload, true),
   updateVehicle: (id, payload) => apiSend("PUT", `/vehicles/${id}`, payload, true),
   deleteVehicle: (id) => apiSend("DELETE", `/vehicles/${id}`, undefined, true),
-  createPricingPlan: (payload) => apiSend("POST", "/content/pricing-plans", payload, true),
-  updatePricingPlan: (id, payload) => apiSend("PUT", `/content/pricing-plans/${id}`, payload, true),
-  deletePricingPlan: (id) => apiSend("DELETE", `/content/pricing-plans/${id}`, undefined, true),
-  createFaq: (payload) => apiSend("POST", "/content/faqs", payload, true),
-  updateFaq: (id, payload) => apiSend("PUT", `/content/faqs/${id}`, payload, true),
-  deleteFaq: (id) => apiSend("DELETE", `/content/faqs/${id}`, undefined, true),
 
-
-    // ---- Bookings (needs the JWT; admin gets every booking, customer gets their own) ----
+  // ---- Bookings (needs the JWT; admin gets every booking, customer gets their own) ----
   getBookings: () => apiSend("GET", "/bookings", undefined, true),
   // customer/admin -> { vehicle_id, rent_start_date, rent_end_date }
   createBooking: (payload) => apiSend("POST", "/bookings", payload, true),
@@ -81,12 +74,6 @@ export const api = {
   // ---- Reviews (needs the JWT — anyone logged in as customer/admin can leave one) ----
   createReview: (payload) => apiSend("POST", "/reviews", payload, true),
 
-
-  // ---- Bookings (needs the JWT; admin gets every booking, customer gets their own) ----
-  getBookings: () => apiSend("GET", "/bookings", undefined, true),
-  // Admin -> marks 'returned'; customer -> cancels their own (if not yet started)
-  updateBooking: (id) => apiSend("PUT", `/bookings/${id}`, {}, true),
-
   // ---- Category management (admin only) ----
   createCategory: (payload) => apiSend("POST", "/categories", payload, true),
   deleteCategory: (id) => apiSend("DELETE", `/categories/${id}`, undefined, true),
@@ -94,5 +81,16 @@ export const api = {
   // ---- Brand management (admin only) ----
   createBrand: (payload) => apiSend("POST", "/brands", payload, true),
   deleteBrand: (id) => apiSend("DELETE", `/brands/${id}`, undefined, true),
-};
 
+  // ---- Pricing plan management (admin only) ----
+  createPricingPlan: (payload) => apiSend("POST", "/content/pricing-plans", payload, true),
+  deletePricingPlan: (id) => apiSend("DELETE", `/content/pricing-plans/${id}`, undefined, true),
+
+  // ---- FAQ management (admin only) ----
+  createFaq: (payload) => apiSend("POST", "/content/faqs", payload, true),
+  deleteFaq: (id) => apiSend("DELETE", `/content/faqs/${id}`, undefined, true),
+
+  // ---- Testimonial management (admin only) ----
+  createTestimonial: (payload) => apiSend("POST", "/content/testimonials", payload, true),
+  deleteTestimonial: (id) => apiSend("DELETE", `/content/testimonials/${id}`, undefined, true),
+};

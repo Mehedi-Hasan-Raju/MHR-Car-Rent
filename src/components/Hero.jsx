@@ -43,13 +43,15 @@ export default function Hero({ startingPrice }) {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
               <a
-                href="#listings"
+                href="/listings"
                 className="rounded-full bg-amber px-7 py-3.5 text-sm font-semibold text-[#1a1200] transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-10px_rgba(247,148,29,0.6)]"
               >
+               
                 Rent a Car
+                         
               </a>
               <a
-                href="#"
+                href="/dashboard"
                 className="rounded-full border border-white/35 px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5"
               >
                 List Your Car

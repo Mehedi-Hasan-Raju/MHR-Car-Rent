@@ -52,7 +52,7 @@ export default function AuthLayout({ title, subtitle, children }) {
         </div>
 
         <p className="relative max-w-xs text-sm text-white/60">
-          Every listing verified, every driver welcomed. Rent smarter with DreamsRent.
+          Every listing verified, every driver welcomed. Rent smarter with MHR Rent.
         </p>
       </div>
 

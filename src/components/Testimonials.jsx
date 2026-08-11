@@ -13,10 +13,12 @@ export default function Testimonials() {
     <section id="feedback" className="bg-soft py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-11 max-w-xl">
-          <span className="mb-2.5 block text-[12.5px] font-semibold tracking-wide text-amber-deep">
-            ✦ Word on the road
+          <span className="mb-2.5 flex items-center gap-2 text-[12.5px] font-semibold tracking-wide text-amber-deep">
+            <span>✦</span> Our Clients Feedback <span>✦</span>
           </span>
-          <h2 className="font-display text-3xl font-bold md:text-4xl">Our clients' feedback</h2>
+          <h2 className="font-display text-3xl font-bold md:text-4xl">
+            Provided by customers about their experience
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
